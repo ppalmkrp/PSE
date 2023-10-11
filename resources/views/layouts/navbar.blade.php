@@ -19,15 +19,16 @@
         <header
             class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
             <div class="col-md-3 mb-2 mb-md-0">
-                <a href="/home" class="d-inline-flex link-body-emphasis text-decoration-none">
-                    CLASSROOM
+                <a class="navbar-brand" href="/home">
+                    <img src="./img/logo.png" alt="Logo" width="200" height="45"
+                        class="d-inline-block align-text-top">
                 </a>
             </div>
 
             @guest <!-- ตรวจสอบว่าไม่มีใครล็อกอิน -->
                 <div class="dropdown">
-                    <a href="/login" class="btn btn-outline-danger me-2">Login</a>
-                    <a href="/register" class="btn btn-danger">Register</a>
+                    <a href="/login" type="button" class="btn btn-outline-dark">Login</a>
+                    <a href="/register" type="button" class="btn btn-dark">Register</a>
                 </div>
             @else
                 <!-- ถ้ามีใครล็อกอินแล้ว -->
@@ -40,10 +41,11 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/user/profile">Setting</a></li>
                         @if (Auth::user()->roles == 2)
-                            <li><a class="dropdown-item" href="/addUserForm">Add Student</a></li>
+                            <li><a class="dropdown-item" href="/addstudent">Add Student</a></li>
+                            <li><a class="dropdown-item" href="/addsubject">Add Subject</a></li>
                         @else
-                            <li><a class="dropdown-item" href="/MyWatchlist">Subject</a></li>
-                            <li><a class="dropdown-item" href="/favpage">Score</a></li>
+                        <li><a class="dropdown-item" href="/addsubject">Add Subject</a></li>
+                            <li><a class="dropdown-item" href="/students">Score</a></li>
                         @endif
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
@@ -58,12 +60,18 @@
                 </div>
             @endguest
         </header>
+    </div>
 
+    <div class="container">
+        @yield('content')
+    </div>
+
+    <div class="container">
         <footer class="py-3 my-4">
             <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Student</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Subject</a></li>
+                <li class="nav-item"><a href="/home" class="nav-link px-2 text-body-secondary">Home</a></li>
+                <li class="nav-item"><a href="/students" class="nav-link px-2 text-body-secondary">Student</a></li>
+                <li class="nav-item"><a href="/subjects" class="nav-link px-2 text-body-secondary">Subject</a></li>
                 <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Score</a></li>
             </ul>
             <p class="text-center text-body-secondary">© 2023 Company, Inc</p>

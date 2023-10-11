@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\SubjectController;
 
 
 /*
@@ -25,11 +26,18 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+        return view('welcome');
+    })->name('welcome');
+
+    Route::get('/home',[ClassroomController::class,'home']);
 });
 
-Route::get('/home',[ClassroomController::class,'home']);
-Route::get('/students', [ClassroomController::class,'index']);
-Route::get('/students/create', [ClassroomController::class,'create']);
-Route::post('/students', [ClassroomController::class,'store']);
+//subject
+Route::get('/addsubject', [SubjectController::class, 'create'])->name('subjects.create');
+Route::post('/subjects/{subject_id}',[SubjectController::class,'store'])->name('subjects.store');
+Route::get('/subjects', [SubjectController::class, 'index'])->name('subjects.index');
+
+Route::get('/homework/create', 'HomeworkController@create')->name('homework.create');
+Route::post('/homework', 'HomeworkController@store')->name('homework.store');
+Route::get('/homework/{id}/edit', 'HomeworkController@edit')->name('homework.edit');
+Route::put('/homework/{id}', 'HomeworkController@update')->name('homework.update');
